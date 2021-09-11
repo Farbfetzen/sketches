@@ -75,6 +75,7 @@ public class SandPilesInteractive extends PApplet {
         final int i = xyToPileIndex(pileX, pileY);
         final int n = (int) random(N_SAND_MIN, N_SAND_MAX);
         pile[i] += n;
+        nextPile[i] += n;
     }
 
     @Override
@@ -95,7 +96,7 @@ public class SandPilesInteractive extends PApplet {
                 final int n = pile[i];
                 if (n >= 4) {
                     final int nToDistribute = n / 4;
-                    nextPile[i] = n % 4;
+                    nextPile[i] -= n - n % 4;
 
                     // left neighbor
                     if (x > 0) {

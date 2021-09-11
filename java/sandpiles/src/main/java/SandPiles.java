@@ -1,7 +1,6 @@
 // https://en.wikipedia.org/wiki/Abelian_sandpile_model
 // https://www.youtube.com/watch?v=1MtEUErz7Gg
 
-// TODO: Make another sketch with 8 neighbors.
 // TODO: Improve square_size = 1 by using the pixels array.
 
 import processing.core.PApplet;
@@ -50,8 +49,8 @@ public class SandPiles extends PApplet {
         pileWidth = width / SQUARE_SIZE_TWICE;
         pileHeight = height / SQUARE_SIZE_TWICE;
         pile = new int[pileWidth * pileHeight];
-        nextPile = pile.clone();
         pile[pile.length - 1] = N_SAND;
+        nextPile = pile.clone();
     }
 
     @Override
@@ -108,7 +107,7 @@ public class SandPiles extends PApplet {
                 if (n >= 4) {
                     notFinished = true;
                     final int nToDistribute = n / 4;
-                    nextPile[i] = n % 4;
+                    nextPile[i] -= n - n % 4;
 
                     // left neighbor
                     if (x > 0) {
