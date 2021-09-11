@@ -63,10 +63,7 @@ public class SandPiles extends PApplet {
                 }
             }
         } else {
-            boolean notFinished = true;
-            while (notFinished) {
-                notFinished = topple();
-            }
+            while (topple()) { }  // Run until the pile has toppled completely.
         }
 
         for (int x = 0; x < pileWidth; x++) {
