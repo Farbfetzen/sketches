@@ -14,16 +14,15 @@ public class SandPiles8 extends PApplet {
     private static boolean animate = true;
     private static boolean animateFast = false;
     private final int[] colors = new int[] {
-            color(0, 166, 0),
-            color(62, 187, 0),
-            color(139, 208, 0),
-            color(230, 230, 0),
-            color(233, 189, 58),
-            color(236, 177, 118),
-            color(239, 194, 179),
-            color(242, 242, 242)
+            color(10, 63, 255),
+            color(60, 117, 255),
+            color(111, 171, 255),
+            color(164, 199, 182),
+            color(218, 212, 72),
+            color(236, 190, 0),
+            color(179, 95, 0),
+            color(123, 0, 0)
     };
-
     private int pileWidth;
     private int pileHeight;
     private int[] pile;
