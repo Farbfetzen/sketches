@@ -11,8 +11,8 @@ public class SandPiles extends PApplet {
     private static int defaultWidth = 800;
     private static int defaultHeight = 800;
 
-    private static final boolean ANIMATE = true;
-    private static final boolean ANIMATE_FAST = true;
+    private static boolean animate = true;
+    private static boolean animateFast = false;
     private static final int N_SAND = 250_000;
     private static final int SQUARE_SIZE = 2;
     private static final int SQUARE_SIZE_TWICE = SQUARE_SIZE * 2;
@@ -43,7 +43,7 @@ public class SandPiles extends PApplet {
     @Override
     public void setup() {
         background(colors[0]);
-        if (!ANIMATE) {
+        if (!animate) {
             noLoop();
         }
         noStroke();
@@ -56,9 +56,9 @@ public class SandPiles extends PApplet {
 
     @Override
     public void draw() {
-        if (ANIMATE) {
+        if (animate) {
             topple();
-            if (ANIMATE_FAST) {
+            if (animateFast) {
                 for (int i = 0; i < 20; i++) {
                     topple();
                 }
@@ -87,6 +87,15 @@ public class SandPiles extends PApplet {
                 // bottom right quadrant
                 square(rightX, bottomY, SQUARE_SIZE);
             }
+        }
+    }
+
+    @Override
+    public void keyPressed() {
+        if (key == ' ') {
+            animateFast = !animateFast;
+        } else if (key == RETURN || key == ENTER) {
+            animate = false;
         }
     }
 
