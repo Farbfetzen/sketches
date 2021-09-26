@@ -1,13 +1,28 @@
+build/
+libs/
+.idea
+*.pdf
+
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-workspace
+
+
+# Python
+__pycache__/
+.venv/
+
+
+# R
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
-
-*.pdf
-
-.idea
-build/
-libs/
 
 
 # Java
