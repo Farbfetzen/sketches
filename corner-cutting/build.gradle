@@ -1,0 +1,23 @@
+plugins {
+    id 'application'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+application {
+    mainClass = 'CornerCutting'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation files('/home/sebastian/Processing/processing-4.0b1/core/library/core.jar')
+    implementation 'art.farbfetzen:processing-utilities:1.0-SNAPSHOT'
+}
