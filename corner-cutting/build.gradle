@@ -18,6 +18,6 @@ repositories {
 }
 
 dependencies {
-    implementation files('/home/sebastian/Processing/processing-4.0b1/core/library/core.jar')
+    implementation 'org.processing:core:4.0b1'
     implementation 'art.farbfetzen:processing-utilities:1.0-SNAPSHOT'
 }
