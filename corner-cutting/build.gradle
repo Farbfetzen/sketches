@@ -19,5 +19,5 @@ repositories {
 
 dependencies {
     implementation 'org.processing:core:4.0b1'
-    implementation 'art.farbfetzen:processing-utilities:1.0-SNAPSHOT'
+    implementation 'art.farbfetzen:artutils:1.0-SNAPSHOT'
 }
