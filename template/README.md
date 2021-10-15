@@ -5,6 +5,6 @@ Stuff you should rename:
 - the main class
 - the mainClass in build.gradle
 
-Make a `libs` folder and put the Processing 4 `core.jar` inside it.
-
-Run the app using `./gradlew run`. Specify the window size via the command line like this: `./gradlew run --args="800 600"`.
+Run `gradle wrapper` or `gradle wrapper --gradle-version x.y` if necessary.  
+Run the app using `./gradlew run`.  
+Some ketches let you specify the window size like this: `./gradlew run --args="800 600"`.

@@ -13,9 +13,10 @@ application {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
-    implementation files('libs/core.jar')
+    implementation 'org.processing:core:4.0b1'
 }
