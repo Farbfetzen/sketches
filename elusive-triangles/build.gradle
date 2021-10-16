@@ -21,4 +21,5 @@ repositories {
 dependencies {
     implementation 'org.processing:core:4.0b1'
     implementation 'com.github.jdiemke:delaunay-triangulator:master-SNAPSHOT'
+    implementation 'art.farbfetzen:artutils:1.0-SNAPSHOT'
 }
