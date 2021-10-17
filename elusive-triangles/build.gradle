@@ -22,4 +22,5 @@ dependencies {
     implementation 'org.processing:core:4.0b1'
     implementation 'com.github.jdiemke:delaunay-triangulator:master-SNAPSHOT'
     implementation 'art.farbfetzen:artutils:1.0-SNAPSHOT'
+    implementation 'com.google.guava:guava:31.0.1-jre'
 }

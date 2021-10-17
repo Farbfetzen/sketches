@@ -1,87 +1,42 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
+import com.google.common.base.Stopwatch;
 import io.github.jdiemke.triangulation.DelaunayTriangulator;
 import io.github.jdiemke.triangulation.NotEnoughPointsException;
-import io.github.jdiemke.triangulation.Triangle2D;
 import io.github.jdiemke.triangulation.Vector2D;
-import processing.core.PApplet;
-import processing.core.PVector;
 
-import static art.farbfetzen.artutils.ChaikinsCornerCutter.cut;
+public class ElusiveTriangles {
 
-public class ElusiveTriangles extends PApplet {
+    public static void main(final String[] args) throws NotEnoughPointsException {
+        final int nMax = 2000;
+        final int nRepetitions = 100;
+        final Random random = new Random();
+        final Map<Integer, Long> result = new LinkedHashMap<>();
+        final Stopwatch stopwatch = Stopwatch.createUnstarted();
 
-    private final int backgroundColor = color(40, 50, 55);
-    private final int foregroundColor = color(0, 200, 0);
-    private final List<Vector2D> vertices = new ArrayList<>();
-    private final Vector2D mousePoint = new Vector2D(0, 0);
-    private DelaunayTriangulator delaunayTriangulator;
+        for (int n = 10; n <= nMax; n += 10) {
+            for (int r = 0; r < nRepetitions; r++) {
+                final List<Vector2D> vertices = new ArrayList<>(n);
+                for (int i = 0; i < n; i++) {
+                    vertices.add(new Vector2D(random.nextDouble(), random.nextDouble()));
+                }
+                final DelaunayTriangulator triangulator = new DelaunayTriangulator(vertices);
 
-    public static void main(final String[] args) {
-        PApplet.main(ElusiveTriangles.class);
-    }
-
-    @Override
-    public void settings() {
-        size(1200, 800);
-    }
-
-    @Override
-    public void setup() {
-        noCursor();
-
-        for (int i = 0; i < 30; i++) {
-            vertices.add(new Vector2D(random(20, width - 20.f), random(20, height - 20.f)));
-        }
-        vertices.add(mousePoint);
-        delaunayTriangulator = new DelaunayTriangulator(vertices);
-    }
-
-    @Override
-    public void draw() {
-        mousePoint.x = mouseX;
-        mousePoint.y = mouseY;
-
-        background(backgroundColor);
-
-        stroke(foregroundColor);
-        strokeWeight(10);
-        for (final Vector2D point : vertices) {
-            final float x = (float) point.x;
-            final float y = (float) point.y;
-            point(x, y);
-        }
-
-        try {
-            delaunayTriangulator.triangulate();
-        } catch (final NotEnoughPointsException e) {
-            e.printStackTrace();
-            exit();
-        }
-        strokeWeight(1);
-        for (final Triangle2D triangle : delaunayTriangulator.getTriangles()) {
-            List<PVector> corners = Arrays.asList(
-                    new PVector((float) triangle.a.x, (float) triangle.a.y),
-                    new PVector((float) triangle.b.x, (float) triangle.b.y),
-                    new PVector((float) triangle.c.x, (float) triangle.c.y)
-            );
-            fill(foregroundColor);
-            beginShape();
-            for (final PVector p : corners) {
-                vertex(p.x, p.y);
+                stopwatch.start();
+                triangulator.triangulate();
+                stopwatch.stop();
             }
-            endShape(CLOSE);
-
-            corners = cut(corners, 0.25f, 3, true);
-            fill(backgroundColor);
-            beginShape();
-            for (final PVector corner : corners) {
-                vertex(corner.x, corner.y);
-            }
-            endShape(CLOSE);
+            result.put(n, stopwatch.elapsed(TimeUnit.MILLISECONDS));
+            stopwatch.reset();
         }
+        result.forEach((key, value) -> System.out.printf("%d, %d%n", key, value));
+        // Looks like time goes up quadratically! Maybe because for every point that is inserted all triangles are searched.
+        // Maybe a tree would be smarter, starting with the super triangle.
     }
 
 }
