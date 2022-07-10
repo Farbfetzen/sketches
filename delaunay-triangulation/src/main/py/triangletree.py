@@ -43,6 +43,8 @@ class TriangleTreeNode(Triangle):
 
 
 def get_triangles(points: Sequence[Point]) -> list[Triangle]:
+    if not points:
+        return []
     root = construct_root(points)
     for p in points:
         root.insert(p)

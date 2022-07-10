@@ -1,5 +1,3 @@
-import random
-
 import pygame
 
 from src.main.py import triangletree
@@ -14,36 +12,45 @@ BACKGROUND_COLOR = pygame.Color(32, 32, 32)
 MAX_FPS = 60
 N_POINTS = 10
 MARGIN = 100
-POINT_COLOR = pygame.Color(0, 255, 0)
-POINT_RADIUS = 4
+POINT_DELETE_DISTANCE = 5
 
 
-def generate_points() -> list[Point]:
-    return [Point(random.uniform(MARGIN, WINDOW_WIDTH - MARGIN), random.uniform(MARGIN, WINDOW_HEIGHT - MARGIN))
-            for _ in range(N_POINTS)]
+class App:
 
+    def __init__(self) -> None:
+        self.canvas = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+        self.clock = pygame.time.Clock()
+        self.points: list[Point] = []
+        self.triangles = triangletree.get_triangles(self.points)
+        self.is_running = True
 
-def run() -> None:
-    window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-    clock = pygame.time.Clock()
-    points = generate_points()
-    triangles = triangletree.get_triangles(points)
-
-    while True:
-        clock.tick(MAX_FPS)
+    def handle_input(self) -> None:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
+                self.is_running = False
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    return
-                elif event.key == pygame.K_r:
-                    points = generate_points()
-                    triangles = triangletree.get_triangles(points)
+                    self.is_running = False
+                elif event.key == pygame.K_DELETE:
+                    self.points = []
+                    self.triangles = triangletree.get_triangles(self.points)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    self.points.append(Point(*event.pos))
+                elif event.button == 3:
+                    self.points = [p for p in self.points if p.distance_to(event.pos) > POINT_DELETE_DISTANCE]
+                self.triangles = triangletree.get_triangles(self.points)
 
-        window.fill(BACKGROUND_COLOR)
-        for p in points:
-            p.draw(window, POINT_COLOR, POINT_RADIUS)
-        for t in triangles:
-            t.draw(window)
+    def draw(self) -> None:
+        self.canvas.fill(BACKGROUND_COLOR)
+        for t in self.triangles:
+            t.draw(self.canvas)
+        for p in self.points:
+            p.draw(self.canvas)
         pygame.display.flip()
+
+    def run(self) -> None:
+        while self.is_running:
+            self.clock.tick(MAX_FPS)
+            self.handle_input()
+            self.draw()
