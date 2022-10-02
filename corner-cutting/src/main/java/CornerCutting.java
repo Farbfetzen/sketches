@@ -4,7 +4,7 @@ import java.util.List;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-import art.farbfetzen.artutils.ChaikinsCornerCutter;
+import de.farbfetzen.artutils.ChaikinsCornerCutter;
 
 public class CornerCutting extends PApplet {
 

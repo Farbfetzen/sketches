@@ -18,6 +18,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.processing:core:4.0b1'
-    implementation 'art.farbfetzen:artutils:1.0-SNAPSHOT'
+    implementation 'org.processing:core:4.0.1'
+    implementation 'de.farbfetzen:artutils:1.0-SNAPSHOT'
 }
