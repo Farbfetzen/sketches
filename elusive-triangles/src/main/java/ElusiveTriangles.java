@@ -9,7 +9,7 @@ import io.github.jdiemke.triangulation.Vector2D;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-import static art.farbfetzen.artutils.ChaikinsCornerCutter.cut;
+import static de.farbfetzen.artutils.ChaikinsCornerCutter.cut;
 
 public class ElusiveTriangles extends PApplet {
 
